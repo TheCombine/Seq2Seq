@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>dde551d6-53e0-45ef-84fb-77b11bf7c32e</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>main.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <Name>Seq2Seq</Name>
+    <RootNamespace>Seq2Seq</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="DataEngine.py" />
+    <Compile Include="DataIterator.py" />
+    <Compile Include="main.py" />
+    <Compile Include="Vocabulary.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="data\" />
+    <Folder Include="data\artificial\" />
+    <Folder Include="data\natural\" />
+    <Folder Include="data\PtrNets_datasets\" />
+    <Folder Include="savesModel\" />
+    <Folder Include="savesVocabulary\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="data\artificial\ds_O1_test_5011.txt" />
+    <Content Include="data\artificial\ds_O1_train_39977.txt" />
+    <Content Include="data\artificial\ds_O1_valid_5012.txt" />
+    <Content Include="data\artificial\ds_O2_test_4977.txt" />
+    <Content Include="data\artificial\ds_O2_train_39945.txt" />
+    <Content Include="data\artificial\ds_O2_valid_5078.txt" />
+    <Content Include="data\artificial\ds_O3_test_5159.txt" />
+    <Content Include="data\artificial\ds_O3_train_39811.txt" />
+    <Content Include="data\artificial\ds_O3_valid_5030.txt" />
+    <Content Include="data\natural\ds_O1_len450_test_2190.txt" />
+    <Content Include="data\natural\ds_O1_len450_train_17629.txt" />
+    <Content Include="data\natural\ds_O1_len450_valid_2186.txt" />
+    <Content Include="data\natural\ds_O2_len450_test_2004.txt" />
+    <Content Include="data\natural\ds_O2_len450_train_16008.txt" />
+    <Content Include="data\natural\ds_O2_len450_valid_2137.txt" />
+    <Content Include="data\natural\ds_O3_len450_test_1059.txt" />
+    <Content Include="data\natural\ds_O3_len450_train_8754.txt" />
+    <Content Include="data\natural\ds_O3_len450_valid_1151.txt" />
+    <Content Include="data\natural\LICENSE" />
+    <Content Include="data\PtrNets_datasets\.gitignore" />
+  </ItemGroup>
+  <Import Condition="Exists($(PtvsTargetsFile))" Project="$(PtvsTargetsFile)" />
+  <Import Condition="!Exists($(PtvsTargetsFile))" Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+  <!-- Uncomment the CoreCompile target to enable the Build command in
+       Visual Studio and specify your pre- and post-build commands in
+       the BeforeBuild and AfterBuild targets below. -->
+  <!--<Target Name="CoreCompile" />-->
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+</Project>
