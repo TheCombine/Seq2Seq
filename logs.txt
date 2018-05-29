@@ -1,0 +1,9 @@
+INFO:root:Tue May 29 17:10:29 2018 | Save path: /home/doba3001/Seq2Seq/savesModel/model.ckpt
+INFO:tensorflow:Restoring parameters from /home/doba3001/Seq2Seq/savesModel/model.ckpt
+INFO:root:Tue May 29 17:10:29 2018 | No model save found.
+INFO:root:Tue May 29 17:10:29 2018 | Beginning training. Epochs: 4, Batch size: 128
+INFO:root:Tue May 29 17:10:29 2018 | Beginning epoch 1 out of 4
+INFO:root:Tue May 29 17:53:26 2018 | data/artificial/ds_O1_train_39977.txt loss: 139.74329140782356
+INFO:root:Tue May 29 17:53:26 2018 | Saved model.
+INFO:root:Tue May 29 18:38:18 2018 | data/artificial/ds_O2_train_39945.txt loss: 106.96068966388702
+INFO:root:Tue May 29 18:38:18 2018 | Saved model.
