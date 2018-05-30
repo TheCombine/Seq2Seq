@@ -145,7 +145,7 @@ with tf.Session() as sess:
             LogInfo("%s loss: %s" % (l, set_loss))
             LogInfo("Saved model.")
             epoch_loss += set_loss
-        LogInfo("Epoch loss: %s" % (l, epoch_loss))
+        LogInfo("Epoch loss: %s" % (epoch_loss))
 
     #TokensObj, TokensSrc = de.LoadData(o1valid)
     #TokensObj = TokensObj[:5]
