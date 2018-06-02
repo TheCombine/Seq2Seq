@@ -100,7 +100,7 @@ loss = tf.contrib.seq2seq.sequence_loss(logits=dec_logits, # pred_logits
 #train_op = tf.train.AdamOptimizer().apply_gradients(zip(clipped_gradients, params))
 train_op = tf.train.AdamOptimizer().minimize(loss)
 
-n_epochs = 4
+n_epochs = 32
 batch_size = 128
 
 def LogInfo(message):
