@@ -45,7 +45,7 @@ enc_outputs, enc_final_state = tf.nn.dynamic_rnn(cell=enc_cell,
                                                  dtype=tf.float32)
 
 # ATTENTION
-attention_mechanism = tf.contrib.seq2seq.LuongAttention(
+attention_mechanism = tf.contrib.seq2seq.BahdanauAttention(
     num_units=state_size, 
     memory=enc_outputs, # [batch_size, max_time_o]
     memory_sequence_length=X_len)
@@ -98,14 +98,33 @@ loss = tf.contrib.seq2seq.sequence_loss(logits=dec_logits, # pred_logits
 #gradients = tf.gradients(ys=loss, xs=params)
 #clipped_gradients, _ = tf.clip_by_global_norm(gradients, 5.0)
 #train_op = tf.train.AdamOptimizer().apply_gradients(zip(clipped_gradients, params))
-train_op = tf.train.AdamOptimizer().minimize(loss)
 
-n_epochs = 32
+#train_op = tf.train.AdamOptimizer().minimize(loss)
+optimizer = tf.train.GradientDescentOptimizer()
+grads = optimizer.compute_gradients(loss=loss)
+clipped_grads = [(tf.clip_by_value(grads, -1., 1.), var) for grad, var in gvs]
+train_op = optimizer.apply_gradients(clipped_grads)
+
+n_epochs = 4
 batch_size = 128
+training = False
 
 def LogInfo(message):
     logging.info("%s | %s" % (time.ctime(), message))
 logging.basicConfig(filename='logs.txt',level=logging.INFO)
+
+def PrintPrediction(ExpectedIndices, PredictedIndices):
+    ExpectedTokens = vocab.IndicesToTokensSrc(ExpectedIndices)
+    PredictedTokens = vocab.IndicesToTokensSrc(PredictedIndices)
+    file = open('predictions.txt', 'a')
+    print("Expected:", file=file)
+    print(' '.join(ExpectedTokens).replace('<unk>', '').replace('<nl>', '\n'), file=file)
+    print(file=file)
+    print("Predicted:", file=file)
+    print(' '.join(PredictedTokens).replace('<unk>', '').replace('<nl>', '\n'), file=file)
+    print(file=file)
+    print(file=file)
+    file.close()
 
 # Add ops to save and restore all the variables.
 saver = tf.train.Saver()
@@ -123,43 +142,44 @@ with tf.Session() as sess:
         print("No model save found.")
         LogInfo("No model save found.")
 
-    print("Beginning training. Epochs: %s, Batch size: %s" % (n_epochs, batch_size))
-    LogInfo("Beginning training. Epochs: %s, Batch size: %s" % (n_epochs, batch_size))
-    for epoch in range(n_epochs):
-        epoch_loss = 0
-        LogInfo("Beginning epoch %s out of %s" % (epoch + 1, n_epochs))
-        load = [o1train, o2train, o3train]
-        for l in load:
-            set_loss = 0
-            TokensObj, TokensSrc = de.LoadData(l)
-            IndicesObj = vocab.TokensToIndicesObj(TokensObj)
-            IndicesSrc = vocab.TokensToIndicesSrc(TokensSrc)
-            di = DataIterator(IndicesObj, IndicesSrc)
-            while True:
-                batch = di.GetNextBatch(batch_size)
-                if batch == None:
-                    break
-                _, c = sess.run([train_op, loss], feed_dict={X: batch[0], X_len: batch[1], Y: batch[2], Y_len: batch[3], Y_targets: batch[4]})
-                set_loss += c
-            saver.save(sess, savePath)
-            LogInfo("%s loss: %s" % (l, set_loss))
-            LogInfo("Saved model.")
-            epoch_loss += set_loss
-        LogInfo("Epoch loss: %s" % (epoch_loss))
+    if training:
+        print("Beginning training. Epochs: %s, Batch size: %s" % (n_epochs, batch_size))
+        LogInfo("Beginning training. Epochs: %s, Batch size: %s" % (n_epochs, batch_size))
+        for epoch in range(n_epochs):
+            epoch_loss = 0
+            LogInfo("Beginning epoch %s out of %s" % (epoch + 1, n_epochs))
+            load = [o1train, o2train, o3train]
+            for l in load:
+                set_loss = 0
+                TokensObj, TokensSrc = de.LoadData(l)
+                IndicesObj = vocab.TokensToIndicesObj(TokensObj)
+                IndicesSrc = vocab.TokensToIndicesSrc(TokensSrc)
+                di = DataIterator(IndicesObj, IndicesSrc)
+                while True:
+                    batch = di.GetNextBatch(batch_size)
+                    if batch == None:
+                        break
+                    _, c = sess.run([train_op, loss], feed_dict={X: batch[0], X_len: batch[1], Y: batch[2], Y_len: batch[3], Y_targets: batch[4]})
+                    set_loss += c
+                saver.save(sess, savePath)
+                LogInfo("%s loss: %s" % (l, set_loss))
+                LogInfo("Saved model.")
+                epoch_loss += set_loss
+            LogInfo("Epoch loss: %s" % (epoch_loss))
+    else:
+        TokensObj, TokensSrc = de.LoadData(o1valid)
+        TokensObj = TokensObj[:5]
+        TokensSrc = TokensSrc[:5]
+        IndicesObj = vocab.TokensToIndicesObj(TokensObj)
+        IndicesSrc = vocab.TokensToIndicesSrc(TokensSrc)
+        di = DataIterator(IndicesObj, IndicesSrc)
+        feed_X, feed_X_len, feed_Y, feed_Y_len, feed_Y_targets = di.GetNextBatch(5)
+        predictions = sess.run([pred_outputs], feed_dict={X: feed_X, X_len: feed_X_len})
+        for i in range(5):
+            PrintPrediction(feed_Y_targets[i], predictions[0].sample_id[i])
 
-    #TokensObj, TokensSrc = de.LoadData(o1valid)
-    #TokensObj = TokensObj[:5]
-    #TokensSrc = TokensSrc[:5]
-    #IndicesObj = vocab.TokensToIndicesObj(TokensObj)
-    #IndicesSrc = vocab.TokensToIndicesSrc(TokensSrc)
-    #di = DataIterator(IndicesObj, IndicesSrc)
-    #feed_X, feed_X_len, feed_Y, feed_Y_len, feed_Y_targets = di.GetNextBatch(5)
-    #predictions = sess.run([pred_outputs], feed_dict={X: feed_X, X_len: feed_X_len})
-    #for i in range(5):
-    #    print ("expected:")
-    #    print (feed_Y_targets[i])
-    #    print ("prediction:")
-    #    print (predictions[0].sample_id[i])
+
+
 
 #def length(sequence):
 #  used = tf.sign(tf.reduce_max(tf.abs(sequence), 2))
@@ -178,4 +198,3 @@ with tf.Session() as sess:
 #    sequence_length=length(sequence),
 #    dtype=tf.float32
 #)
-

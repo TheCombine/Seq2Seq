@@ -1,2 +1,0 @@
-model_checkpoint_path: "/home/doba3001/Seq2Seq/savesModel/model.ckpt"
-all_model_checkpoint_paths: "/home/doba3001/Seq2Seq/savesModel/model.ckpt"
