@@ -105,7 +105,7 @@ grads = optimizer.compute_gradients(loss=loss)
 clipped_grads = [(tf.clip_by_value(grads, -1., 1.), var) for grad, var in gvs]
 train_op = optimizer.apply_gradients(clipped_grads)
 
-n_epochs = 4
+n_epochs = 32
 batch_size = 128
 training = False
 
