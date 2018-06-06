@@ -100,14 +100,14 @@ loss = tf.contrib.seq2seq.sequence_loss(logits=dec_logits, # pred_logits
 #train_op = tf.train.AdamOptimizer().apply_gradients(zip(clipped_gradients, params))
 
 #train_op = tf.train.AdamOptimizer().minimize(loss)
-optimizer = tf.train.GradientDescentOptimizer()
+optimizer = tf.train.AdamOptimizer()
 grads = optimizer.compute_gradients(loss=loss)
-clipped_grads = [(tf.clip_by_value(grads, -1., 1.), var) for grad, var in gvs]
+clipped_grads = [(tf.clip_by_value(grad, -1., 1.), var) for grad, var in grads]
 train_op = optimizer.apply_gradients(clipped_grads)
 
 n_epochs = 32
 batch_size = 128
-training = False
+training = True
 
 def LogInfo(message):
     logging.info("%s | %s" % (time.ctime(), message))
