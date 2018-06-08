@@ -59,3 +59,11 @@ INFO:root:Fri Jun  8 09:27:43 2018 | data/artificial/ds_O3_train_39811.txt loss:
 INFO:root:Fri Jun  8 09:27:43 2018 | Saved model.
 INFO:root:Fri Jun  8 09:27:43 2018 | Epoch loss: 182.96013294160366
 INFO:root:Fri Jun  8 09:27:43 2018 | Beginning epoch 8 out of 32
+INFO:root:Fri Jun  8 11:13:57 2018 | data/artificial/ds_O1_train_39977.txt loss: 57.6415553689003
+INFO:root:Fri Jun  8 11:13:57 2018 | Saved model.
+INFO:root:Fri Jun  8 13:06:13 2018 | data/artificial/ds_O2_train_39945.txt loss: 61.80360780656338
+INFO:root:Fri Jun  8 13:06:13 2018 | Saved model.
+INFO:root:Fri Jun  8 14:58:31 2018 | data/artificial/ds_O3_train_39811.txt loss: 61.7751878798008
+INFO:root:Fri Jun  8 14:58:31 2018 | Saved model.
+INFO:root:Fri Jun  8 14:58:31 2018 | Epoch loss: 181.22035105526447
+INFO:root:Fri Jun  8 14:58:31 2018 | Beginning epoch 9 out of 32
