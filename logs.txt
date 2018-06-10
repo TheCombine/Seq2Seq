@@ -93,3 +93,17 @@ INFO:root:Sat Jun  9 15:53:41 2018 | Epoch loss: 180.30708068609238
 INFO:root:Sat Jun  9 15:53:41 2018 | Beginning epoch 12 out of 32
 INFO:root:Sat Jun  9 19:17:14 2018 | data/artificial/ds_O1_train_39977.txt loss: 57.72076915204525
 INFO:root:Sat Jun  9 19:17:14 2018 | Saved model.
+INFO:root:Sat Jun  9 23:04:50 2018 | data/artificial/ds_O2_train_39945.txt loss: 61.14002025127411
+INFO:root:Sat Jun  9 23:04:50 2018 | Saved model.
+INFO:root:Sun Jun 10 02:44:02 2018 | data/artificial/ds_O3_train_39811.txt loss: 60.60026362538338
+INFO:root:Sun Jun 10 02:44:02 2018 | Saved model.
+INFO:root:Sun Jun 10 02:44:02 2018 | Epoch loss: 179.46105302870274
+INFO:root:Sun Jun 10 02:44:02 2018 | Beginning epoch 13 out of 32
+INFO:root:Sun Jun 10 06:17:57 2018 | data/artificial/ds_O1_train_39977.txt loss: 56.90859793126583
+INFO:root:Sun Jun 10 06:17:57 2018 | Saved model.
+INFO:root:Sun Jun 10 09:58:30 2018 | data/artificial/ds_O2_train_39945.txt loss: 60.903637275099754
+INFO:root:Sun Jun 10 09:58:30 2018 | Saved model.
+INFO:root:Sun Jun 10 12:16:00 2018 | data/artificial/ds_O3_train_39811.txt loss: 60.59294217824936
+INFO:root:Sun Jun 10 12:16:00 2018 | Saved model.
+INFO:root:Sun Jun 10 12:16:00 2018 | Epoch loss: 178.40517738461494
+INFO:root:Sun Jun 10 12:16:00 2018 | Beginning epoch 14 out of 32
